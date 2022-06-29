@@ -4,50 +4,61 @@ using UnityEngine;
 public class AlignToPlanet : MonoBehaviour
 {
     public Transform planet;
-    public LayerMask planetOnly;
-
+    public LayerMask planetOnlyMask;
+    public float rayOffsetFromSurface = 50f;
     Vector3 gravity;
-    Vector3 surfacePoint;
-    Vector3 surfaceNormal;
+
+    RayData surfaceData = new RayData();
+
+    public bool debug = false;
 
     void Update()
     {
         gravity = (planet.position - transform.position).normalized;
 
-        RaycastToSurface();
-        Align();
-        StickToSurface();
+        if (RaycastToSurface())
+        {
+            AlignToSurface();
+            StickToSurface();
+            DebugRays();
+        }
     }
 
-    void RaycastToSurface()
+    bool RaycastToSurface()
     {
         RaycastHit hit;
-        Vector3 spacePosition = transform.position + -gravity * 50f;
-        if (Physics.Raycast(spacePosition, gravity, out hit, Vector3.Distance(spacePosition, planet.position), planetOnly))
+        Vector3 spacePosition = transform.position + -gravity * rayOffsetFromSurface;
+        surfaceData.grounded = false;
+
+        if (Physics.Raycast(spacePosition, gravity, out hit, Vector3.Distance(spacePosition, planet.position), planetOnlyMask))
         {
-            if (hit.transform != planet && hit.transform != null)
-            {
-                Debug.Log(hit.transform);
-                return;
-            }
-
-            //Debug.DrawLine(spacePosition, hit.point, Color.yellow);
-            //Debug.DrawLine(transform.position, hit.point, Color.red);
-
-            surfacePoint = hit.point;
-            surfaceNormal = hit.normal;
+            surfaceData.grounded = true;
+            surfaceData.point = hit.point;
+            surfaceData.normal = hit.normal;
         }
+
+        return surfaceData.grounded;
+    }
+
+    void DebugRays()
+    {
+        if (!debug)
+            return;
+
+        Debug.DrawLine(transform.position + -gravity * rayOffsetFromSurface, surfaceData.point, Color.yellow);
+        Debug.DrawLine(transform.position, surfaceData.point, Color.red);
+
     }
 
     void StickToSurface()
     {
-        transform.position = surfacePoint;
+        transform.position = surfaceData.point;
     }
 
-    void Align()
+    void AlignToSurface()
     {
         Quaternion rotationToPlanet = Quaternion.FromToRotation(transform.up, -gravity) * transform.rotation;
-        Quaternion surfaceRotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
+        Quaternion surfaceRotation = Quaternion.FromToRotation(transform.up, surfaceData.normal) * transform.rotation;
 
         Quaternion halfwayRotation = Quaternion.Lerp(rotationToPlanet, surfaceRotation, 0.5f);
         transform.rotation = halfwayRotation;
