@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FPS
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  surfaceRotationSpeed: 6
+  surfaceRotationSpeed: 4
   groundColSize: 0.53
   idleGravity: 0.15
-  surfaceRotation: 0.504
+  surfaceRotation: 1
   jumpForce: 12
   jumpTime: 0.45

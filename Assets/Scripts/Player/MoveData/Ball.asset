@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   surfaceRotationSpeed: 2
-  groundColSize: 0.5
+  groundColSize: 0.95
   idleGravity: 1
-  surfaceRotation: 0
+  surfaceRotation: 0.486
   jumpForce: 20
   jumpTime: 0.4

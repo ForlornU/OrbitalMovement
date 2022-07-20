@@ -51,9 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planet: {fileID: 0}
-  planetOnly:
+  planetOnlyMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
+  rayOffsetFromSurface: 50
+  debug: 0
 --- !u!1 &951918946573509843
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1c59f8f5665cef4d86b8d52b905172e, type: 2}
+  - {fileID: 2100000, guid: 58a6c225a8fb57148bd651774727d54a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
