@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 106faab6ef8b9864994a88aee5ce71ff, type: 3}
-  m_Name: Ball
+  m_Name: Rig_MoveData
   m_EditorClassIdentifier: 
   moveSpeed: 6
   surfaceRotationSpeed: 2
   groundColSize: 0.95
   idleGravity: 1
-  surfaceRotation: 0.486
+  surfaceRotation: 0.5
   jumpForce: 20
   jumpTime: 0.4

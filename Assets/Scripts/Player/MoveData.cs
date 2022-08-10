@@ -9,10 +9,10 @@ public class MoveData : ScriptableObject
     public float groundColSize = 0.55f;
     
     [Range(0f, 1f)]
-    public float idleGravity = 1f;
+    public float surfaceGravity = 1f;
     [Range(0f, 1f)]
-    public float surfaceRotation = 0.5f;
+    public float stickToSurface = 0.5f;
     
     public float jumpForce = 5f;
-    public float jumpTime = 0.4f;
+    public float jumpDuration = 0.4f;
 }

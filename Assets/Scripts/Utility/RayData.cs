@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/*
+ * Encapsulates some commonly used data from raycasting
+*/
+
 public class RayData
 {
     public Vector3 normal;

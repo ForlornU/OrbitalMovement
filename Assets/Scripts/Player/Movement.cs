@@ -51,14 +51,14 @@ public abstract class Movement : MonoBehaviour
         if (!groundData.grounded)
             gravityStrength += planet.GetComponent<Planet>().GravitationalPull * Time.deltaTime;
         else
-            gravityStrength = moveData.idleGravity;
+            gravityStrength = moveData.surfaceGravity;
     }
 
     void RotateToSurface()
     {
         Quaternion gravityRotation = Quaternion.FromToRotation(transform.up, -gravityDirection) * transform.rotation;
         Quaternion surfaceRotation = Quaternion.FromToRotation(transform.up, groundData.normal) * transform.rotation;
-        Quaternion finalRotation = Quaternion.Lerp(gravityRotation, surfaceRotation, moveData.surfaceRotation);
+        Quaternion finalRotation = Quaternion.Lerp(gravityRotation, surfaceRotation, moveData.stickToSurface);
         
         transform.rotation = Quaternion.Slerp(transform.rotation, finalRotation, moveData.surfaceRotationSpeed * Time.deltaTime);
     }
@@ -77,10 +77,10 @@ public abstract class Movement : MonoBehaviour
         float force = moveData.jumpForce;
         float t = 0f;
 
-        while(t < moveData.jumpTime)
+        while(t < moveData.jumpDuration)
         {
             jumpVector = -gravityDirection * force;
-            force = Mathf.Lerp(moveData.jumpForce, 0f, t / moveData.jumpTime);
+            force = Mathf.Lerp(moveData.jumpForce, 0f, t / moveData.jumpDuration);
             t += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
