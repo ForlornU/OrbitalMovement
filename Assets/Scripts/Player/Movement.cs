@@ -100,9 +100,7 @@ public abstract class Movement : MonoBehaviour
     {        
        if(Physics.CheckSphere(groundCollider.position, moveData.groundColSize, GroundLayerMask))
         {
-            RaycastHit hit;
-            Physics.Raycast(groundCollider.position, -transform.up, out hit, 5f);
-
+            Physics.Raycast(groundCollider.position, -transform.up, out RaycastHit hit, 5f);
             groundData.grounded = true;
             groundData.normal = hit.normal;
             return;
